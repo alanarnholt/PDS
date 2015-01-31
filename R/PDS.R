@@ -25,7 +25,7 @@ NULL
 #' @aliases gapminder
 #' @docType data
 #' @description Country level statistics
-#' @source \url{gapminder.org}
+#' @source \url{http://www.gapminder.org}
 #' @details See the code books in inst/CodeBooks for details
 #' @examples
 #' dim(gapminder)
