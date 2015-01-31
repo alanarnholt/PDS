@@ -23,7 +23,7 @@
  $ urbanrate           : num  24 46.7 65.2 88.9 56.7 ...
 }}
 \source{
-\url{gapminder.org}
+\url{http://www.gapminder.org}
 }
 \usage{
 gapminder
