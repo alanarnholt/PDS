@@ -1,0 +1,2 @@
+load("/Users/alan/git_repositories/PDS/data/AddHealth_pds.RData")
+load("/Users/alan/git_repositories/PDS/data/GAPMINDER.RData")
