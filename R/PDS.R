@@ -8,7 +8,7 @@
 NULL
 #####################################################################################
 #' @name AddHealth
-#' @title Adolescent to Adult Health 
+#' @title Adolescent to Adult Health (Wave I)
 #' @aliases AddHealth
 #' @docType data
 #' @description The National Longitudinal Study of Adolescent to Adult Health (Add Health) is a longitudinal study of a nationally representative sample of adolescents in grades 7-12 in the United States during the 1994-95 school year. 
