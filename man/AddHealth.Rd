@@ -3,7 +3,7 @@
 \docType{data}
 \name{AddHealth}
 \alias{AddHealth}
-\title{Adolescent to Adult Health}
+\title{Adolescent to Adult Health (Wave I)}
 \format{A data frame with 6504 observations on 2829 variables}
 \source{
 \url{http://www.cpc.unc.edu/projects/addhealth}
