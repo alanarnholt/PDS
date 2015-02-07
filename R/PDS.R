@@ -56,3 +56,26 @@ NULL
 #' dim(NESARC)
 #' @keywords datasets
 "NESARC"
+#####################################################################################
+#' @name frustration
+#' @title Frustation by Academic Major
+#' @aliases frustration
+#' @docType data
+#' @description Frustation by Academic Major
+#' @source \url{https://oli.cmu.edu/jcourse/workbook/activity/page?context=434b8ad280020ca60166a71faa2caf60}
+#' @examples
+#' dim(frustration)
+#' @keywords datasets
+"frustration"
+#####################################################################################
+#' @name signdist
+#' @title Sign Distance
+#' @aliases signdist
+#' @docType data
+#' @description For n=30 drivers, the driver's age and the maximum distance at which the driver can read a highway sign at night. 
+#' @source \url{https://oli.cmu.edu/jcourse/workbook/activity/page?context=434b8b4980020ca60017028aafe3258a}
+#' @examples
+#' dim(signdist)
+#' @keywords datasets
+"signdist"
+
