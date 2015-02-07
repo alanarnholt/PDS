@@ -18,7 +18,7 @@ signdist
 For n=30 drivers, the driver's age and the maximum distance at which the driver can read a highway sign at night.
 }
 \examples{
-dim(signdist)
+plot(Distance ~ Age, data = signdist)
 }
 \keyword{datasets}
 

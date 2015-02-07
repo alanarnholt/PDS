@@ -22,7 +22,7 @@ frustration
 Frustation by Academic Major
 }
 \examples{
-dim(frustration)
+boxplot(Frustration.Score ~ Major, data = frustration)
 }
 \keyword{datasets}
 
