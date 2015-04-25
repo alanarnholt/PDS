@@ -1,0 +1,120 @@
+---
+title: "Passion Driven Statistics"
+author: "Alan T. Arnholt"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette:
+    fig_caption: yes
+vignette: >
+  \VignetteIndexEntry{Passion Driven Statistics}
+  \VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r, echo = FALSE, message = FALSE}
+knitr::opts_chunk$set(comment = NA, message = FALSE, warning = FALSE, prompt = TRUE)
+```
+
+
+## Using **PDS**
+
+Once the `PDS` package is installed, you will need to load the package using the `library` function.   
+
+```{r}
+library(PDS)
+```
+
+Now it is possible to access the data in the four data sets by typing the name of the data frame at the `R` prompt.  For example, to see the first five values in the variable `incomeperperson` from the `gapminder` data frame enter
+
+```{r}
+gapminder[1:5, 'incomeperperson']
+```
+
+### Data Management Using the `dplyr`Package
+
+The package `dplyr` must first be installed before it can be used.  There are two ways one can install the package.  The easiest way to install `dplyr`, is to type 
+```{r eval = FALSE}
+install.packages("dplyr")
+```
+at the `R` prompt.  If you want the latest version of `dplyr`, you can install the development version from GitHub provided you have the required tools to build `R` packages installed on your machine (`Rtools` for Windows users, `XCode` for Mac users, etc.).  
+
+```{r eval = FALSE}
+if (packageVersion("devtools") < 1.6) {
+  install.packages("devtools")
+}
+devtools::install_github("hadley/lazyeval")
+devtools::install_github("hadley/dplyr")
+```
+
+### Renaming Variables
+
+Renaming the variables `IDNUM`, `ETOTLCA2`, and `ETHRACE2A` to `UniqueID`, `EthanolConsumption`, and `Ethnicity`, respectively, is done with the `rename` function.  Although it is not a requirement, the data frame `NESARC` is converted to a `data frame tbl` per the advice given in the `dplyr` vignette.  The `rename` function takes a data frame or data frame tbl as its first argument while the syntax `new_name = old_name` is used as the second argument.
+
+```{r label = "RENAME"}
+library(dplyr)
+NESARC[1:5, 1:5]  # Show first 5 rows and first 5 columns of NESARC
+NESARCtbl <- tbl_df(NESARC) %>% 
+  rename(UniqueID = IDNUM, EthanolConsumption = ETOTLCA2, Ethnicity = ETHRACE2A) %>% 
+  select(UniqueID, EthanolConsumption, Ethnicity)  
+NESARCtbl
+```
+
+```{r, echo=FALSE, results='asis'}
+knitr::kable(head(NESARCtbl, 5))
+```
+
+Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
+
+- Never uses retina figures
+- Has a smaller default figure size
+- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
+
+## Vignette Info
+
+Note the various macros within the `vignette` setion of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
+
+## Styles
+
+The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
+
+    output: 
+      rmarkdown::html_vignette:
+        css: mystyles.css
+
+## Figures
+
+The figure sizes have been customised so that you can easily put two images side-by-side. 
+
+```{r, fig.show='hold'}
+plot(1:10, main ="Basic Plot", pch = 19, col ="red")
+plot(10:1, xlab = "", ylab ="", col = "green", pch = 19)
+```
+
+You can enable figure captions by `fig_caption: yes` in YAML:
+
+    output:
+      rmarkdown::html_vignette:
+        fig_caption: yes
+
+Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
+
+```{r, fig.show = 'hold', fig.cap = "Basic plot in case you wondered"}
+plot(1:10, main ="Basic Plot", pch = 19, col ="red")
+```
+
+## More Examples
+
+You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
+
+```{r, echo=FALSE, results='asis'}
+knitr::kable(head(mtcars, 10))
+```
+
+```{r}
+1:10
+```
+
+Also a quote using `>`:
+
+> "He who gives up [code] safety for [code] speed deserves neither."
+([via](https://twitter.com/hadleywickham/status/504368538874703872))
