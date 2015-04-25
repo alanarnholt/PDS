@@ -38,3 +38,9 @@ To install the **PDS** package, type the following at the **R** prompt:
 ```{S}
 devtools::install_github('alanarnholt/PDS')
 ```
+
+If you want the vignette (not complete yet), type the following at the **R** prompt:
+
+```{S}
+devtools::install_github('alanarnholt/PDS', build_vignettes = TRUE)
+```
