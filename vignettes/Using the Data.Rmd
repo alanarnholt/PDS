@@ -6,8 +6,8 @@ output:
   rmarkdown::html_vignette:
     fig_caption: yes
 vignette: >
-  \VignetteIndexEntry{Passion Driven Statistics}
-  \VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Passion Driven Statistics}
+  %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
 
