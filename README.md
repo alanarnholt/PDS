@@ -44,3 +44,9 @@ If you want the vignette (not complete yet), type the following at the **R** pro
 ```{S}
 devtools::install_github('alanarnholt/PDS', build_vignettes = TRUE)
 ```
+
+The **code books** for the data sets are in the **CodeBooks** folder of the installed package.  To see where your system has installed the **PDS** package, type the following at the **R** prompt:
+
+```{S}
+system.file(package = "PDS")
+```
