@@ -5,7 +5,7 @@ Version: 0.1
 Date: 2015-01-31
 Author: Alan T. Arnholt
 Maintainer: Alan T. Arnholt <arnholtat@appstate.edu>
-Description: Data sets for PDS
+Description: Data sets for PDS.
 Depends: R (>= 2.10)
 LazyData: TRUE
 License: GPL-2
