@@ -4,6 +4,4 @@ bioc_required: true
 warnings_are_errors: true
 
 r_binary_packages:
-  - pander
   - knitr
-  - dplyr
