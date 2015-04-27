@@ -30,7 +30,7 @@ Now it is possible to access the data in the four data sets by typing the name o
 gapminder[1:5, 'incomeperperson']
 ```
 
-### Data Management Using the `dplyr`Package
+### Data Management Using the `dplyr` Package
 
 The package `dplyr` must first be installed before it can be used.  There are two ways one can install the package.  The easiest way to install `dplyr`, is to type 
 ```{r eval = FALSE}
@@ -46,6 +46,17 @@ devtools::install_github("hadley/lazyeval")
 devtools::install_github("hadley/dplyr")
 ```
 
+Create a subset of people 25 or younger who smoked in the last 12 months.  To do this, one can use the `dplyr` package. Note that `CHECK321 == 1` is used to see if subject has smoked in the past 12 months and `!is.na()` is used to make sure the subset does not contain `NA`s for the chosen variables.
+
+```{r}
+library(dplyr)
+nesarc <- NESARC %>% 
+  filter(!is.na(CHECK321) & !is.na(AGE) & CHECK321 ==1 & AGE <= 25)
+dim(nesarc)
+```
+
+The `nesarc` data frame contains `r dim(nesarc)[2]` variables.  Use the verb `select` from the `dplyr` package to select the variables `CHECK321`, `AGE` (age of subject), `TAB12MDX` (tobaco dependence past 12 months), `S3AQ3B1` (usual smoking quantity), `ETHRACE2A` (ethnicity), `SEX` (gender), `MAJORDEPLIFE` (Dysthymia-Lifetime) and `S3AQ3C1` (usual smoking frequency).  
+
 ### Renaming Variables
 
 Renaming the variables `IDNUM`, `ETOTLCA2`, and `ETHRACE2A` to `UniqueID`, `EthanolConsumption`, and `Ethnicity`, respectively, is done with the `rename` function.  Although it is not a requirement, the data frame `NESARC` is converted to a `data frame tbl` per the advice given in the `dplyr` vignette.  The `rename` function takes a data frame or data frame tbl as its first argument while the syntax `new_name = old_name` is used as the second argument.
@@ -54,22 +65,74 @@ Renaming the variables `IDNUM`, `ETOTLCA2`, and `ETHRACE2A` to `UniqueID`, `Etha
 library(dplyr)
 NESARC[1:5, 1:5]  # Show first 5 rows and first 5 columns of NESARC
 NESARCtbl <- tbl_df(NESARC) %>% 
-  rename(UniqueID = IDNUM, EthanolConsumption = ETOTLCA2, Ethnicity = ETHRACE2A) %>% 
-  select(UniqueID, EthanolConsumption, Ethnicity)  
+  rename(UniqueID = IDNUM, EthanolConsumption = ETOTLCA2, Ethnicity = ETHRACE2A, 
+         SmokingFrequency = S3AQ3B1, Age = AGE, MajorDepression = MAJORDEPLIFE, 
+         DysthymiaLifetime = DYSLIFE, TobaccoDependence = TAB12MDX, DailyCigsSmoked = S3AQ3C1) %>% 
+  select(UniqueID, EthanolConsumption, Ethnicity, SmokingFrequency, Age, MajorDepression, 
+         DysthymiaLifetime, TobaccoDependence, DailyCigsSmoked)  
 NESARCtbl
 ```
 
 #### kable
 
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(NESARCtbl, 5))
+```{r, echo = FALSE, results = 'asis'}
+knitr::kable(NESARCtbl[1300:1305, c("EthanolConsumption", "SmokingFrequency", "MajorDepression")], 
+             align = c("c","c","c"), caption = "Three Selected Columns")
 ```
 
 #### pander
 
 ```{r, echo=FALSE, results='asis'}
-pander::pandoc.table(head(NESARCtbl, 5))
+pander::pandoc.table(NESARCtbl[1300:1305, c("EthanolConsumption", "SmokingFrequency", "MajorDepression")],
+                     caption = "Three Selected Columns")
 ```
+
+### Coding Missing Values
+
+Note that the variable `S3AQ3B1` renamed to `SmokingFrequency` uses a 9 to record `unknown` for smoking frequency.
+
+```{r label = "CodeMissing"}
+NESARCtbl$SmokingFrequency[NESARCtbl$SmokingFrequency == 9] <- NA
+summary(NESARCtbl$SmokingFrequency)  # Note that 9 still appears
+NESARCtbl$SmokingFrequency <- factor(NESARCtbl$SmokingFrequency)[, drop = TRUE]
+summary(NESARCtbl$SmokingFrequency)  # Unused level no longer appears
+```
+
+I hate to look back at the code book to figure out what the heck the numbers represent in this case!  
+One of the great things about the `R` language is how it handles a wide variety of data types.  
+In this case, the variable `SmokingFrequency` is a factor with numeric labels for the levels of the factor.  
+To change the numeric labels to text type the following:
+
+```{r label = "Freq"}
+NESARCtbl$SmokingFrequency <- factor(NESARCtbl$SmokingFrequency, 
+                                     labels = c("Every Day", "5 to 6 Days/week", 
+                                                "3 to 4 Days/week", "1 to 2 Days/week", 
+                                                "2 to 3 Days/month", "Once a month or less"))
+summary(NESARCtbl$SmokingFrequency)
+xtabs(~SmokingFrequency, data = NESARCtbl) # Note how the NA's are not printed
+```
+
+The following `ggplot2` code is used to graph the values in `SmokingFrequency`.
+
+```{r label = "ggSmoke"}
+library(ggplot2)
+ggplot(data = NESARCtbl, aes(x = SmokingFrequency)) + 
+  geom_bar(fill = "lightgray") + 
+  labs(x = "Smoking Frequency") +
+  theme_bw() 
+```
+
+If you do not want to see the `NA`'s or have the labels on the $x-$ axis overlap, use
+
+```{r label = "ggSmoke2", fig.width = 6, fig.height = 6}
+ggplot(data = na.omit(NESARCtbl[ , "SmokingFrequency", drop = FALSE]), aes(x = SmokingFrequency)) + 
+  geom_bar(fill = "lightgray") + 
+  labs(x = "Smoking Frequency") +
+  theme_bw() +
+  theme(axis.text.x  = element_text(angle = 85, vjust = 0.5)) 
+```
+
+
 
 Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
 
