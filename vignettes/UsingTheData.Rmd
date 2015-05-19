@@ -19,16 +19,17 @@ knitr::opts_chunk$set(comment = NA, message = FALSE, warning = FALSE, prompt = T
 
 ## Using **PDS**
 
-Once the `PDS` package is installed, you will need to load the package using the `library` function.   
+Once the `PDS` package is installed, you will need to load the package using the `library` function.  If you need directions for installing the `PDS` package, see [https://github.com/alanarnholt/PDS](https://github.com/alanarnholt/PDS).   
 
 ```{r}
 library(PDS)
 ```
 
-Now it is possible to access the data in the four data sets by typing the name of the data frame at the `R` prompt.  For example, to see the first five values in the variable `incomeperperson` from the `gapminder` data frame enter
+Once the `PDS` pacakge is attached with the `library()` function, one may access the data in one of the data frames by typing the name of the data frame at the `R` prompt.  For example, to see the first five values in the variable `incomeperperson` from the `gapminder` data frame enter
 
 ```{r}
-gapminder[1:5, 'incomeperperson']
+gapminder[1:5, 'incomeperperson']  # Show first five rows for incomeperperson
+gapminder[1:5, 1:4]  # Show the first five rows for variables 1 through 4
 ```
 
 ### Data Management Using the `dplyr` Package
@@ -47,45 +48,66 @@ devtools::install_github("hadley/lazyeval")
 devtools::install_github("hadley/dplyr")
 ```
 
+### Subsetting Your Data
+
 Create a subset of people 25 or younger who smoked in the last 12 months.  To do this, one can use the `dplyr` package. Note that `CHECK321 == 1` is used to see if subject has smoked in the past 12 months and `!is.na()` is used to make sure the subset does not contain `NA`s for the chosen variables.
 
 ```{r}
 library(dplyr)
-nesarc <- NESARC %>% 
+nesarc <- tbl_df(NESARC) %>% 
   filter(!is.na(CHECK321) & !is.na(AGE) & CHECK321 ==1 & AGE <= 25)
 dim(nesarc)
 ```
 
-The `nesarc` data frame contains `r dim(nesarc)[2]` variables.  Use the verb `select` from the `dplyr` package to select the variables `CHECK321`, `AGE` (age of subject), `TAB12MDX` (tobaco dependence past 12 months), `S3AQ3B1` (usual smoking quantity), `ETHRACE2A` (ethnicity), `SEX` (gender), `MAJORDEPLIFE` (Dysthymia-Lifetime) and `S3AQ3C1` (usual smoking frequency).  
+The `nesarc` data frame contains `r dim(nesarc)[2]` variables.  
+
+Three different approaches to subsetting data will be given.  The first approach is to use the `dplyr` function `filter`; the second approach is to use indices; and the third approach is to use the function `subset`.  Consider creating a subset of the `NESARC` data set where a person indicates
+
+1. He/she has smoked over 100 cigarettes (`S3AQ1A == 1`)
+2. He/she has smoked in the past year (`CHECK321 == 1`)
+3. He/she has typically smoked every day over the last year (`S3AQ3B1 == 1`)
+4. He/she is less than or equal to 25 years old (`AGE <= 25`)
+
+
+The first approach uses the `filter` function with the `%>%` function.  Although it is not a requirement, the data frame `NESARC` is converted to a `data frame tbl` per the advice given in the `dplyr` vignette.
+
+```{r label = "SUB1"}
+NESARCsub1 <- tbl_df(NESARC) %>%
+  filter(S3AQ1A == 1 & CHECK321 == 1 & S3AQ3B1 == 1 & AGE <= 25)
+dim(NESARCsub1)
+```
+
+The second approach uses standard indexing.
+
+```{r label = "SUB2"}
+NESARCsub2 <- NESARC[NESARC$S3AQ1A == 1 & NESARC$CHECK321 == 1 & 
+                       NESARC$S3AQ3B1 == 1 & NESARC$AGE <= 25, ]
+dim(NESARCsub2)
+```
+
+The third approach uses the `subset` function.
+```{r label = "SUB3"}
+NESARCsub3 <- subset(NESARC, subset = S3AQ1A == 1 & CHECK321 == 1 & 
+                       S3AQ3B1 == 1 & AGE <= 25)
+dim(NESARCsub3)
+```
+
+Use the verb `select` from the `dplyr` package to select the variables `CHECK321`, `AGE` (age of subject), `TAB12MDX` (tobaco dependence past 12 months), `S3AQ3B1` (usual smoking quantity), `ETHRACE2A` (ethnicity), `SEX` (gender), `MAJORDEPLIFE` (Dysthymia-Lifetime) and `S3AQ3C1` (usual smoking frequency).  
 
 ### Renaming Variables
 
-Renaming the variables `IDNUM`, `ETOTLCA2`, and `ETHRACE2A` to `UniqueID`, `EthanolConsumption`, and `Ethnicity`, respectively, is done with the `rename` function.  Although it is not a requirement, the data frame `NESARC` is converted to a `data frame tbl` per the advice given in the `dplyr` vignette.  The `rename` function takes a data frame or data frame tbl as its first argument while the syntax `new_name = old_name` is used as the second argument.
+Renaming the variables `IDNUM`, `ETOTLCA2`, `ETHRACE2A`, `S3AQ3B1`, `AGE`, `MAJORDEPLIFE`, `DYSLIFE`, `TAB12MDX`, and `S3AQ3C1` to `UniqueID`, `EthanolConsumption`, `Ethnicity`, `SmokingFrequency`, `Age`, `MajorDepression`, `DysthymiaLifetime`, ` TobaccoDependence`, and `DailyCigsSmoked` respectively, is done with the `rename` function.  Although it is not a requirement, the data frame `NESARC` is converted to a `data frame tbl` per the advice given in the `dplyr` vignette.  The `rename` function takes a data frame or data frame tbl as its first argument while the syntax `new_name = old_name` is used as the second argument.
 
 ```{r label = "RENAME"}
-library(dplyr)
 NESARC[1:5, 1:5]  # Show first 5 rows and first 5 columns of NESARC
 NESARCtbl <- tbl_df(NESARC) %>% 
   rename(UniqueID = IDNUM, EthanolConsumption = ETOTLCA2, Ethnicity = ETHRACE2A, 
-         SmokingFrequency = S3AQ3B1, Age = AGE, MajorDepression = MAJORDEPLIFE, 
+         SmokingFrequency = S3AQ3B1, Age = AGE, MajorDepression = MAJORDEPLIFE, Sex = SEX, 
          DysthymiaLifetime = DYSLIFE, TobaccoDependence = TAB12MDX, DailyCigsSmoked = S3AQ3C1) %>% 
   select(UniqueID, EthanolConsumption, Ethnicity, SmokingFrequency, Age, MajorDepression, 
-         DysthymiaLifetime, TobaccoDependence, DailyCigsSmoked)  
+         DysthymiaLifetime, TobaccoDependence, DailyCigsSmoked, S3AQ1A, CHECK321, 
+         SmokingFrequency, Sex)  
 NESARCtbl
-```
-
-#### kable
-
-```{r, echo = FALSE, results = 'asis'}
-knitr::kable(NESARCtbl[1300:1305, c("EthanolConsumption", "SmokingFrequency", "MajorDepression")], 
-             align = c("c","c","c"), caption = "Three Selected Columns")
-```
-
-#### pander
-
-```{r, echo=FALSE, results='asis'}
-pander::pandoc.table(NESARCtbl[1300:1305, c("EthanolConsumption", "SmokingFrequency", "MajorDepression")],
-                     caption = "Three Selected Columns")
 ```
 
 ### Coding Missing Values
@@ -133,7 +155,198 @@ ggplot(data = na.omit(NESARCtbl[ , "SmokingFrequency", drop = FALSE]), aes(x = S
   theme(axis.text.x  = element_text(angle = 85, vjust = 0.5)) 
 ```
 
+### Collapsing Categories
 
+Consider the variable `S1Q6A` with 14 levels recording the highest level of education of the participant.  To collapse the categories in to dichotomous variable indicating the presence of a high school degree use the `ifelse` function. The levels `1`, `2`, `3`, `4`, `5`, `6`, and `7` of the variable `S1Q6A` correspond to education levels less than completing high school.
+
+```{r label = "CollapseHS"}
+NESARC$HS_DEGREE <- factor(ifelse(NESARC$S1Q6A %in% c("1", "2", "3", "4", "5", "6", "7"), 
+                                  "No", "Yes"))
+summary(NESARC$HS_DEGREE)
+```
+
+### Creating a Factor from a Numeric Vector
+
+To create a factor with three levels (young adults, adults, older adults) using the variable `AGE` (a numeric vector) use the function `cut`.
+
+```{r label = "CUT1"}
+NESARC$AGEfac <- cut(NESARC$AGE, breaks = c(18, 30, 50, Inf), 
+                     labels = c("Young Adult", "Adult", "Older Adult"), 
+                     include.lowest = TRUE)
+summary(NESARC$AGEfac)
+```
+
+Consider collapsing the numeric vector `S3AQ3C1` (usual quantity when cigarettes smoked) into a categorical variable with 5 levels.
+
+```{r label = "CUT2"}
+NESARC$S3AQ3C1fac <- cut(NESARC$S3AQ3C1, breaks = c(0, 5, 10, 15, 20, 100), 
+                         include.lowest = TRUE)
+summary(NESARC$S3AQ3C1fac)
+```
+
+### Aggregating Variables using `ifelse`
+
+Consider creating a new variable `DepressLife` which is `Yes` if the variable `MAJORLIFE` is a 1 or if `DYSLIFE` is a 1.
+
+```{r label = "Agg1"}
+NESARC$DepressLife <- factor(ifelse( (NESARC$MAJORDEPLIFE == 1 | NESARC$DYSLIFE == 1), "Yes", "No"))
+summary(NESARC$DepressLife)
+```
+
+As another example, consider creating a variable `PPpanic` for past and present panic disorders.  The variables `APANDX12` and `APANDXP12` record a panic disorder within the last 12 months and prior to the last 12 months with agoraphobia, respectively.  The variables `PANDX12` and `PANDXP12` record a panic disorder within the last 12 months and prior to the last 12 months without agoraphobia, respectively.
+
+```{r label = "PANIC"}
+NESARC$PPpanic <- factor(ifelse( (NESARC$APANDX12 == 1 | NESARC$APANDXP12 == 1 | 
+                                    NESARC$PANDX12 == 1 | NESARC$PANDXP12 == 1 ), "Yes", "No"))
+summary(NESARC$PPpanic)
+```
+
+Consider a new variable `AllDeprSymp` that records whether a subject exhibits all depression symptoms or not.  There are 19 depression symptoms recorded in the variables `S4AQ4A1` - `S4AQ4A19`.  Note that the logical operator `&` is used to test if all depression symptoms are present.
+
+```{r label = "DEPsym"}
+NESARC$AllDeprSymp <- factor(ifelse( (NESARC$S4AQ4A1 == 1 & NESARC$S4AQ4A2 == 1 & 
+                                        NESARC$S4AQ4A3 == 1 & NESARC$S4AQ4A4 == 1 & 
+                                        NESARC$S4AQ4A5 == 1 & NESARC$S4AQ4A6 == 1 & 
+                                        NESARC$S4AQ4A7 == 1 & NESARC$S4AQ4A8 == 1 & 
+                                        NESARC$S4AQ4A9 == 1 & NESARC$S4AQ4A10 == 1 & 
+                                        NESARC$S4AQ4A11 == 1 & NESARC$S4AQ4A12 == 1 & 
+                                        NESARC$S4AQ4A13 == 1 & NESARC$S4AQ4A14 == 1 & 
+                                        NESARC$S4AQ4A15 == 1 & NESARC$S4AQ4A16 == 1 & 
+                                        NESARC$S4AQ4A17 == 1 & NESARC$S4AQ4A18 == 1 & 
+                                        NESARC$S4AQ4A19 == 1), "Yes", "No"))
+summary(NESARC$AllDeprSymp)
+```
+
+
+
+### Creating a Composite Factor
+
+The following code selects the 19 variables that deal with depression using the `select` function from `dplyr`. The variable `nDS` counts the number of depression symptoms a subject displays. 
+
+```{r label = "CompositeFactor"}
+mysum <- function(x){sum(x == 1)}
+myadd <- function(x){apply(x, 1, mysum)}
+ndf <- NESARC %>%
+  select(contains("S4AQ4A"))
+nDS <- myadd(ndf)
+ndf <- cbind(ndf, nDS)
+xtabs(~nDS, data = ndf)    
+```
+
+### Creating a New Variable with `mutate`
+
+```{r label = "Mutate"}
+MINI <- tbl_df(NESARC) %>% 
+  select(S1Q24FT, S1Q24IN, S1Q24LB, SEX) %>% 
+  filter(S1Q24FT < 99, S1Q24IN < 99, S1Q24LB < 999) %>% 
+  mutate(Inches = (S1Q24FT*12 + S1Q24IN),
+         Sex = factor(SEX, labels = c("Male", "Female"))) %>% 
+  rename(Weight = S1Q24LB)
+MINI
+```
+
+
+#### Convert a factor to numeric
+
+Be careful when converting a factor to a vector of numeric values based on the factor labels.  One may be tempted to use `as.numeric` to convert a factor to a numeric vector.  However, using `as.numeric(my_factor)` returns a numeric vector of the index levels not the actual values.
+
+To estimate the total number of cigarettes a subject smokes per month,  convert `S3AQ3B1` renamed to `SmokingFrequency` in `NESARCtbl` (a factor with 6 levels) to a numeric variable using `as.numeric`.  `DaysSmoke` estimates the days per month a subject smokes.  The variable `TotalCigsSmoked` estimates the monthly number of cigarettes a subject smokes per month by multiplying `DaysSmoke` times `DailyCigsSmoked` (`S3AQ3C1`).  The numeric variable `TotalCigsSmoked` is converted into a factor with roughly equivalent numbers stored in each level of the factor `CigsSmokedFac` using the `cut` function.
+
+```{r}
+summary(NESARCtbl$SmokingFrequency)
+levels(NESARCtbl$SmokingFrequency)
+table(as.numeric(NESARCtbl$SmokingFrequency))
+```
+
+
+```{r}
+NESARCtbl$DaysSmoke <- as.numeric(NESARCtbl$SmokingFrequency)
+NESARCtbl$DaysSmoke[NESARCtbl$DaysSmoke == 1] <- 30
+NESARCtbl$DaysSmoke[NESARCtbl$DaysSmoke == 2] <- 4*5.5
+NESARCtbl$DaysSmoke[NESARCtbl$DaysSmoke == 3] <- 4*3.5
+NESARCtbl$DaysSmoke[NESARCtbl$DaysSmoke == 4] <- 4*1.5
+NESARCtbl$DaysSmoke[NESARCtbl$DaysSmoke == 5] <- 2.5
+NESARCtbl$DaysSmoke[NESARCtbl$DaysSmoke == 6] <- 1
+# Using dplyr again
+NESARCtbl <- NESARCtbl %>% 
+  mutate(TotalCigsSmoked = DaysSmoke*DailyCigsSmoked)
+proportions <- quantile(NESARCtbl$TotalCigsSmoked, na.rm = TRUE)
+proportions
+NESARCtbl$CigsSmokedFac <- cut(NESARCtbl$TotalCigsSmoked, breaks = proportions, 
+                               include.lowest = TRUE)
+NESARCtbl
+```
+
+#### Subsetting Again
+
+```{r}
+NESARCtbl <- NESARCtbl %>% 
+  filter(S3AQ1A == 1 & CHECK321 == 1 & SmokingFrequency == "Every Day" & Age <= 25)
+dim(NESARCtbl)
+str(NESARCtbl)
+```
+
+#### Exploratory Graphs
+
+**Numeric** data $\rightarrow$ histogram and density plots.
+
+```{r label = "EDAquan"}
+library(ggplot2)
+ggplot(data = NESARCtbl, aes(x = EthanolConsumption) ) + 
+  geom_histogram(binwidth = 1, fill = "pink") + 
+  theme_bw() +
+  labs(x = "Ethanol Consumption")
+ggplot(data = NESARCtbl, aes(x = EthanolConsumption) ) + 
+  geom_density(fill = "pink") + 
+  theme_bw() +
+  labs(x = "Ethanol Consumption")
+```
+
+**Categorical** data $\rightarrow$ bar graphs.
+
+```{r label = "EDAqual"}
+ggplot(data = NESARCtbl, aes(x = Ethnicity)) +
+  geom_bar() + 
+  theme_bw() 
+```
+
+We should provide more descriptive labels for the factors `Ethnicity`, `MajorDepression`, `DysthymiaLifetime`, and `TobaccoDependence`.
+
+#### Changing Levels and Labeling Variables
+
+```{r}
+NESARCtbl$TobaccoDependence <- factor(NESARCtbl$TobaccoDependence, 
+                         labels = c("No Nicotine Dependence", "Nicotine Dependence"))
+NESARCtbl$TobaccoDependence <- factor(NESARCtbl$TobaccoDependence, 
+                         levels = c("Nicotine Dependence", "No Nicotine Dependence"))
+NESARCtbl$Ethnicity <- factor(NESARCtbl$Ethnicit, 
+                              labels = c("Caucasian", "African American", 
+                                         "Native American", "Asian", "Hispanic"))
+NESARCtbl$Sex <- factor(NESARCtbl$Sex, labels = c("Male", "Female"))
+table(NESARCtbl$Sex)
+NESARCtbl$Sex <- factor(NESARCtbl$Sex, levels = c("Female", "Male"))
+NESARCtbl$SmokingFrequency <- factor(NESARCtbl$SmokingFrequency, 
+                         levels = c("Once a month or less", "2 to 3 Days/month", "1 to 2 Days/week",  
+                                    "3 to 4 Days/week", "5 to 6 Days/week", "Every Day"))
+ggplot(data = NESARCtbl, aes(x = Ethnicity)) +
+  geom_bar(fill = "gray") + 
+  theme_bw() + 
+  theme(axis.text.x  = element_text(angle = 85, vjust = 0.5))
+```
+
+#### kable
+
+```{r, echo = FALSE, results = 'asis'}
+knitr::kable(NESARCtbl[1300:1305, c("EthanolConsumption", "SmokingFrequency", "MajorDepression")], 
+             align = c("c","c","c"), caption = "Three Selected Columns")
+```
+
+#### pander
+
+```{r, echo=FALSE, results='asis'}
+pander::pandoc.table(NESARCtbl[1300:1305, c("EthanolConsumption", "SmokingFrequency", "MajorDepression")],
+                     caption = "Three Selected Columns")
+```
 
 Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
 
