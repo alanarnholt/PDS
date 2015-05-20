@@ -112,7 +112,7 @@ NESARCtbl
 
 ### Coding Missing Values
 
-Note that the variable `S3AQ3B1` renamed to `SmokingFrequency` uses a 9 to record `unknown` for smoking frequency.
+Note that the variable `S3AQ3B1` renamed to `SmokingFrequency` uses a 9 to record `unknown` for smoking frequency.  To find a word/variable in a `pdf` use `shift F` with Windows or `command F` with OSX. Type the desired word/variable inside the box and press enter/return.
 
 ```{r label = "CodeMissing"}
 NESARCtbl$SmokingFrequency[NESARCtbl$SmokingFrequency == 9] <- NA
@@ -284,6 +284,7 @@ NESARCtbl <- NESARCtbl %>%
   filter(S3AQ1A == 1 & CHECK321 == 1 & SmokingFrequency == "Every Day" & Age <= 25)
 dim(NESARCtbl)
 str(NESARCtbl)
+summary(NESARCtbl)
 ```
 
 #### Exploratory Graphs
@@ -306,7 +307,7 @@ ggplot(data = NESARCtbl, aes(x = EthanolConsumption) ) +
 
 ```{r label = "EDAqual"}
 ggplot(data = NESARCtbl, aes(x = Ethnicity)) +
-  geom_bar() + 
+  geom_bar(fill = c("snow", "brown4", "red", "yellow", "tan"), color = "black") + 
   theme_bw() 
 ```
 
@@ -317,34 +318,69 @@ We should provide more descriptive labels for the factors `Ethnicity`, `MajorDep
 ```{r}
 NESARCtbl$TobaccoDependence <- factor(NESARCtbl$TobaccoDependence, 
                          labels = c("No Nicotine Dependence", "Nicotine Dependence"))
+xtabs(~TobaccoDependence, data = NESARCtbl)
 NESARCtbl$TobaccoDependence <- factor(NESARCtbl$TobaccoDependence, 
                          levels = c("Nicotine Dependence", "No Nicotine Dependence"))
-NESARCtbl$Ethnicity <- factor(NESARCtbl$Ethnicit, 
+xtabs(~TobaccoDependence, data = NESARCtbl)
+NESARCtbl$Ethnicity <- factor(NESARCtbl$Ethnicity, 
                               labels = c("Caucasian", "African American", 
                                          "Native American", "Asian", "Hispanic"))
 NESARCtbl$Sex <- factor(NESARCtbl$Sex, labels = c("Male", "Female"))
 table(NESARCtbl$Sex)
 NESARCtbl$Sex <- factor(NESARCtbl$Sex, levels = c("Female", "Male"))
+table(NESARCtbl$Sex)
 NESARCtbl$SmokingFrequency <- factor(NESARCtbl$SmokingFrequency, 
                          levels = c("Once a month or less", "2 to 3 Days/month", "1 to 2 Days/week",  
                                     "3 to 4 Days/week", "5 to 6 Days/week", "Every Day"))
+NESARCtbl$MajorDepression <- factor(NESARCtbl$MajorDepression, 
+                                    labels = c("No Depression", "Yes Depression"))
 ggplot(data = NESARCtbl, aes(x = Ethnicity)) +
-  geom_bar(fill = "gray") + 
+  geom_bar(fill = c("snow", "brown4", "red", "yellow", "tan"), color = "black") + 
   theme_bw() + 
-  theme(axis.text.x  = element_text(angle = 85, vjust = 0.5))
+  theme(axis.text.x  = element_text(angle = 85, vjust = 0.5)) + 
+  labs(x = "")
+```
+
+```{r label = "ggSmoke2A", fig.width = 6, fig.height = 4}
+T1 <- xtabs(~ TobaccoDependence + MajorDepression, data = NESARCtbl)
+T1
+ggplot(data = NESARCtbl, aes(x = MajorDepression, fill = TobaccoDependence)) +
+  geom_bar() + 
+  theme_bw()
+T2 <- prop.table(T1, 2)
+T2
+ggplot(data = NESARCtbl, aes(x = MajorDepression, fill = TobaccoDependence)) +
+  geom_bar(position = "fill") + 
+  labs(x = "", y = "Fraction", 
+       title = "Fraction of young adult daily smokers\nwith and without nicotine addiction\nby depression status") +
+  theme_bw() +
+  scale_fill_manual(values = c("red", "pink"), name = "Tobacco Addiction Status")
+###
+ggplot(data = NESARCtbl, aes(x = MajorDepression, fill = TobaccoDependence)) +
+  geom_bar(position = "fill") + 
+  labs(x = "", y = "Fraction", 
+       title = "Fraction of young adult daily smokers\nwith and without nicotine addiction\nby depression status") +
+  theme_bw() +
+  scale_fill_manual(values = c("red", "pink"), name = "Tobacco Addiction Status") + 
+  facet_grid(Sex ~ .)
 ```
 
 #### kable
 
 ```{r, echo = FALSE, results = 'asis'}
-knitr::kable(NESARCtbl[1300:1305, c("EthanolConsumption", "SmokingFrequency", "MajorDepression")], 
+knitr::kable(NESARCtbl[1300:1305, c("EthanolConsumption", "Sex", "MajorDepression")], 
              align = c("c","c","c"), caption = "Three Selected Columns")
+```
+
+```{r, echo = FALSE, results = 'asis'}
+knitr::kable(NESARCtbl[1300:1305, c("EthanolConsumption", "Sex", "MajorDepression")], 
+             align = c("c","c","c"), caption = "Three Selected Columns", col.names = c("Ethanol Consuption", "Gender", "Depression"))
 ```
 
 #### pander
 
 ```{r, echo=FALSE, results='asis'}
-pander::pandoc.table(NESARCtbl[1300:1305, c("EthanolConsumption", "SmokingFrequency", "MajorDepression")],
+pander::pandoc.table(NESARCtbl[1300:1305, c("EthanolConsumption", "Sex", "MajorDepression")],
                      caption = "Three Selected Columns")
 ```
 
