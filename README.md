@@ -19,7 +19,7 @@ You may download the most recent version using the [devtools](http://github.com/
 
 However, you need to make sure you're set up to develop packages. This is platform specific:
 
-* On Windows, download and install [Rtools](http://http://cran.r-project.org/bin/windows/Rtools/).
+* On Windows, download and install [Rtools](http://cran.r-project.org/bin/windows/Rtools/).
 * On the Mac, make sure you have [Xcode](https://developer.apple.com/xcode/) installed.
 * On Linux, make sure you have the R-dev packages installed.
 

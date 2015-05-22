@@ -27,7 +27,7 @@ library(PDS)
 
 If you need directions for installing the `PDS` package, see [https://github.com/alanarnholt/PDS](https://github.com/alanarnholt/PDS). Code Books for `AddHealth`, `gapminder`, `marscrater`, and `NESARC` are in the `CodeBooks` folder of the installed `PDS` package.  To see where your system has installed the `PDS` package, type the following at the `R` prompt:
 
-```{r}
+```{r eval = FALSE}
 system.file(package = "PDS")
 ```
 
