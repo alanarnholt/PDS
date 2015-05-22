@@ -9,5 +9,5 @@ Description: Data sets for PDS.
 Depends: R (>= 2.10)
 LazyData: TRUE
 License: GPL-2
-Suggests: knitr, pander, dplyr
+Suggests: knitr, pander, dplyr, ggplot2, rmarkdown
 VignetteBuilder: knitr
