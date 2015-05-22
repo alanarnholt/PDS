@@ -32,7 +32,9 @@ gapminder
 Country level statistics
 }
 \details{
-See the code books in inst/CodeBooks for details
+See the code books in the CodeBooks folder for details.
+The CodeBooks folder is a top level folder of the \code{PDS} package.  To see where the \code{PDS} package is
+installed on your machine, type the following at the \code{R} prompt: \code{system.file(package = "PDS")}
 }
 \examples{
 dim(gapminder)

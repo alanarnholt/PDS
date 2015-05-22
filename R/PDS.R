@@ -14,7 +14,9 @@ NULL
 #' @description The National Longitudinal Study of Adolescent to Adult Health (Add Health) is a longitudinal study of a nationally representative sample of adolescents in grades 7-12 in the United States during the 1994-95 school year. 
 #' @format A data frame with 6504 observations on 2829 variables
 #' @source \url{http://www.cpc.unc.edu/projects/addhealth}
-#' @details See the code books in inst/CodeBooks for details
+#' @details See the code books in the CodeBooks folder for details.  
+#' The CodeBooks folder is a top level folder of the \code{PDS} package.  To see where the \code{PDS} package is
+#' installed on your machine, type the following at the \code{R} prompt: \code{system.file(package = "PDS")}
 #' @examples
 #' dim(AddHealth)
 #' @keywords datasets
@@ -26,7 +28,9 @@ NULL
 #' @docType data
 #' @description Country level statistics
 #' @source \url{http://www.gapminder.org}
-#' @details See the code books in inst/CodeBooks for details
+#' @details See the code books in the CodeBooks folder for details.  
+#' The CodeBooks folder is a top level folder of the \code{PDS} package.  To see where the \code{PDS} package is
+#' installed on your machine, type the following at the \code{R} prompt: \code{system.file(package = "PDS")}  
 #' @examples
 #' dim(gapminder)
 #' @keywords datasets
@@ -38,7 +42,9 @@ NULL
 #' @docType data
 #' @description marscrater
 #' @format A data frame with 384343 observations on 10 variables
-#' @details See the code books in inst/CodeBooks for details
+#' @details See the code books in the CodeBooks folder for details.  
+#' The CodeBooks folder is a top level folder of the \code{PDS} package.  To see where the \code{PDS} package is
+#' installed on your machine, type the following at the \code{R} prompt: \code{system.file(package = "PDS")}
 #' @examples
 #' dim(marscrater_pds)
 #' @keywords datasets
@@ -50,7 +56,9 @@ NULL
 #' @docType data
 #' @description NESARC
 #' @format A data frame with 43093 observations on 3008 variables
-#' @details See the code books in inst/CodeBooks for details
+#' @details See the code books in the CodeBooks folder for details.  
+#' The CodeBooks folder is a top level folder of the \code{PDS} package.  To see where the \code{PDS} package is
+#' installed on your machine, type the following at the \code{R} prompt: \code{system.file(package = "PDS")}
 #' @source \url{http://pubs.niaaa.nih.gov/publications/AA70/AA70.htm}
 #' @examples
 #' dim(NESARC)

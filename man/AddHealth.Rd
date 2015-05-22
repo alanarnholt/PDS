@@ -15,7 +15,9 @@ AddHealth
 The National Longitudinal Study of Adolescent to Adult Health (Add Health) is a longitudinal study of a nationally representative sample of adolescents in grades 7-12 in the United States during the 1994-95 school year.
 }
 \details{
-See the code books in inst/CodeBooks for details
+See the code books in the CodeBooks folder for details.
+The CodeBooks folder is a top level folder of the \code{PDS} package.  To see where the \code{PDS} package is
+installed on your machine, type the following at the \code{R} prompt: \code{system.file(package = "PDS")}
 }
 \examples{
 dim(AddHealth)
