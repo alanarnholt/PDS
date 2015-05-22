@@ -31,9 +31,9 @@ If you need directions for installing the `PDS` package, see [https://github.com
 system.file(package = "PDS")
 ```
 
-The Code Books are stored as pdfs.  Note: To find a word/variable in a `pdf` use `shift F` with Windows or `command F` with OSX. Type the desired word/variable inside the box and press enter/return.
+The Code Books are stored as PDFs.  Note: To find a word/variable in a `pdf` use `shift F` with Windows or `command F` with OSX. Type the desired word/variable inside the box and press enter/return.
 
-Once the `PDS` pacakge is attached with the `library()` function, one may access the data in one of the data frames by typing the name of the data frame at the `R` prompt.  For example, to see the first five values in the variable `incomeperperson` from the `gapminder` data frame enter
+Once the `PDS` package is attached with the `library()` function, one may access the data in one of the data frames by typing the name of the data frame at the `R` prompt.  For example, to see the first five values in the variable `incomeperperson` from the `gapminder` data frame enter
 
 ```{r}
 gapminder[1:5, 'incomeperperson']  # Show first five rows for incomeperperson
@@ -100,7 +100,7 @@ NESARCsub3 <- subset(NESARC, subset = S3AQ1A == 1 & CHECK321 == 1 &
 dim(NESARCsub3)
 ```
 
-Use the verb `select` from the `dplyr` package to select the variables `CHECK321`, `AGE` (age of subject), `TAB12MDX` (tobaco dependence past 12 months), `S3AQ3B1` (usual smoking quantity), `ETHRACE2A` (ethnicity), `SEX` (gender), `MAJORDEPLIFE` (Dysthymia-Lifetime) and `S3AQ3C1` (usual smoking frequency).  
+Use the verb `select` from the `dplyr` package to select the variables `CHECK321`, `AGE` (age of subject), `TAB12MDX` (tobacco dependence past 12 months), `S3AQ3B1` (usual smoking quantity), `ETHRACE2A` (ethnicity), `SEX` (gender), `MAJORDEPLIFE` (Dysthymia-Lifetime) and `S3AQ3C1` (usual smoking frequency).  
 
 ### Renaming Variables
 
