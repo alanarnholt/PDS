@@ -19,11 +19,19 @@ knitr::opts_chunk$set(comment = NA, message = FALSE, warning = FALSE, prompt = T
 
 ## Using **PDS**
 
-Once the `PDS` package is installed, you will need to load the package using the `library` function.  If you need directions for installing the `PDS` package, see [https://github.com/alanarnholt/PDS](https://github.com/alanarnholt/PDS).   
+Once the `PDS` package is installed, you will need to load the package using the `library` function.  
 
 ```{r}
 library(PDS)
 ```
+
+If you need directions for installing the `PDS` package, see [https://github.com/alanarnholt/PDS](https://github.com/alanarnholt/PDS). Code Books for `AddHealth`, `gapminder`, `marscrater`, and `NESARC` are in the `CodeBooks` folder of the installed `PDS` package.  To see where your system has installed the `PDS` package, type the following at the `R` prompt:
+
+```{r}
+system.file(package = "PDS")
+```
+
+The Code Books are stored as pdfs.  Note: To find a word/variable in a `pdf` use `shift F` with Windows or `command F` with OSX. Type the desired word/variable inside the box and press enter/return.
 
 Once the `PDS` pacakge is attached with the `library()` function, one may access the data in one of the data frames by typing the name of the data frame at the `R` prompt.  For example, to see the first five values in the variable `incomeperperson` from the `gapminder` data frame enter
 
@@ -112,7 +120,7 @@ NESARCtbl
 
 ### Coding Missing Values
 
-Note that the variable `S3AQ3B1` renamed to `SmokingFrequency` uses a 9 to record `unknown` for smoking frequency.  To find a word/variable in a `pdf` use `shift F` with Windows or `command F` with OSX. Type the desired word/variable inside the box and press enter/return.
+Note that the variable `S3AQ3B1` renamed to `SmokingFrequency` uses a 9 to record `unknown` for smoking frequency.  
 
 ```{r label = "CodeMissing"}
 NESARCtbl$SmokingFrequency[NESARCtbl$SmokingFrequency == 9] <- NA

@@ -3,7 +3,7 @@
 R package containing data sets for *Passion Driven Statistics*
 
 
-### Version 0.1
+### Version 0.1.1
 
 ### Alan T. Arnholt
 
@@ -15,7 +15,7 @@ Please report any **bugs** or **suggestions** at:
 ## Installation
 
 
-You may download the most recent version using the [devtools](http://github.com/hdaley/devtools) function `install_github()` to install **PDS** in R.
+You may download the most recent version using the [devtools](http://github.com/hadley/devtools) function `install_github()` to install **PDS** in R.
 
 However, you need to make sure you're set up to develop packages. This is platform specific:
 

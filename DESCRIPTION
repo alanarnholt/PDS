@@ -1,8 +1,8 @@
 Package: PDS
 Type: Package
 Title: Data Sets for Passion Driven Statistics
-Version: 0.1
-Date: 2015-01-31
+Version: 0.1.1
+Date: 2015-05-22
 Author: Alan T. Arnholt
 Maintainer: Alan T. Arnholt <arnholtat@appstate.edu>
 Description: Data sets for PDS.
