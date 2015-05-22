@@ -5,8 +5,8 @@ knitr::opts_chunk$set(comment = NA, message = FALSE, warning = FALSE, prompt = T
 ## ------------------------------------------------------------------------
 library(PDS)
 
-## ------------------------------------------------------------------------
-system.file(package = "PDS")
+## ----eval = FALSE--------------------------------------------------------
+#  system.file(package = "PDS")
 
 ## ------------------------------------------------------------------------
 gapminder[1:5, 'incomeperperson']  # Show first five rows for incomeperperson
