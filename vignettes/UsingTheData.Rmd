@@ -183,7 +183,7 @@ NESARC$AGEfac <- cut(NESARC$AGE, breaks = c(18, 30, 50, Inf),
 summary(NESARC$AGEfac)
 ```
 
-Consider collapsing the numeric vector `S3AQ3C1` (usual quantity when cigarettes smoked) into a categorical variable with 5 levels.
+Consider collapsing the numeric vector `S3AQ3C1` (usual quantity when cigarettes are smoked) into a categorical variable with 5 levels.
 
 ```{r label = "CUT2"}
 NESARC$S3AQ3C1fac <- cut(NESARC$S3AQ3C1, breaks = c(0, 5, 10, 15, 20, 100), 
@@ -193,14 +193,14 @@ summary(NESARC$S3AQ3C1fac)
 
 ### Aggregating Variables using `ifelse`
 
-Consider creating a new variable `DepressLife` which is `Yes` if the variable `MAJORLIFE` is a 1 or if `DYSLIFE` is a 1.
+Consider creating a new variable `DepressLife` which is `Yes` if the variable `MAJORLIFE` or `DYSLIFE` is a 1.
 
 ```{r label = "Agg1"}
 NESARC$DepressLife <- factor(ifelse( (NESARC$MAJORDEPLIFE == 1 | NESARC$DYSLIFE == 1), "Yes", "No"))
 summary(NESARC$DepressLife)
 ```
 
-As another example, consider creating a variable `PPpanic` for past and present panic disorders.  The variables `APANDX12` and `APANDXP12` record a panic disorder within the last 12 months and prior to the last 12 months with agoraphobia, respectively.  The variables `PANDX12` and `PANDXP12` record a panic disorder within the last 12 months and prior to the last 12 months without agoraphobia, respectively.
+As another example, consider creating a variable `PPpanic` for past and present panic disorders.  The variables `APANDX12` and `APANDXP12` record a panic disorder within the last 12 months and prior to the last 12 months, respectively, with agoraphobia.  The variables `PANDX12` and `PANDXP12` record a panic disorder within the last 12 months and prior to the last 12 months, respectively, without agoraphobia.
 
 ```{r label = "PANIC"}
 NESARC$PPpanic <- factor(ifelse( (NESARC$APANDX12 == 1 | NESARC$APANDXP12 == 1 | 
@@ -255,9 +255,9 @@ MINI
 
 #### Convert a factor to numeric
 
-Be careful when converting a factor to a vector of numeric values based on the factor labels.  One may be tempted to use `as.numeric` to convert a factor to a numeric vector.  However, using `as.numeric(my_factor)` returns a numeric vector of the index levels not the actual values.
+Be careful when converting a factor to a vector of numeric values based on the factor labels.  One may be tempted to use `as.numeric` to convert a factor to a numeric vector.  However, using `as.numeric(my_factor)` returns a numeric vector of the index levels, not the actual values.
 
-To estimate the total number of cigarettes a subject smokes per month,  convert `S3AQ3B1` renamed to `SmokingFrequency` in `NESARCtbl` (a factor with 6 levels) to a numeric variable using `as.numeric`.  `DaysSmoke` estimates the days per month a subject smokes.  The variable `TotalCigsSmoked` estimates the monthly number of cigarettes a subject smokes per month by multiplying `DaysSmoke` times `DailyCigsSmoked` (`S3AQ3C1`).  The numeric variable `TotalCigsSmoked` is converted into a factor with roughly equivalent numbers stored in each level of the factor `CigsSmokedFac` using the `cut` function.
+To estimate the total number of cigarettes a subject smokes per month,  convert `S3AQ3B1` renamed to `SmokingFrequency` in `NESARCtbl` (a factor with 6 levels) to a numeric variable using `as.numeric`.  `DaysSmoke` estimates the days per month a subject smokes.  The variable `TotalCigsSmoked` estimates the number of cigarettes a subject smokes per month by multiplying `DaysSmoke` times `DailyCigsSmoked` (`S3AQ3C1`).  The numeric variable `TotalCigsSmoked` is converted into a factor with roughly equivalent numbers stored in each level of the factor `CigsSmokedFac` using the `cut` function.
 
 ```{r}
 summary(NESARCtbl$SmokingFrequency)
