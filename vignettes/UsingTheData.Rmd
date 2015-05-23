@@ -31,7 +31,7 @@ If you need directions for installing the `PDS` package, see [https://github.com
 system.file(package = "PDS")
 ```
 
-The Code Books are stored as PDFs.  Note: To find a word/variable in a `pdf` use `shift F` with Windows or `command F` with OSX. Type the desired word/variable inside the box and press enter/return.
+The Code Books are stored as PDFs.  Note: To find a word/variable in a `PDF` use `shift F` with Windows or `command F` with OSX. Type the desired word/variable inside the box and press enter/return.
 
 Once the `PDS` package is attached with the `library()` function, one may access the data in one of the data frames by typing the name of the data frame at the `R` prompt.  For example, to see the first five values in the variable `incomeperperson` from the `gapminder` data frame enter
 
@@ -42,7 +42,7 @@ gapminder[1:5, 1:4]  # Show the first five rows for variables 1 through 4
 
 ### Data Management Using the `dplyr` Package
 
-The package `dplyr` must first be installed before it can be used.  There are two ways one can install the package.  The easiest way to install `dplyr`, is to type 
+The package `dplyr` must first be installed before it can be used.  There are two ways one can install the package.  The easiest way to install `dplyr` is to type 
 ```{r eval = FALSE}
 install.packages("dplyr")
 ```
@@ -58,7 +58,7 @@ devtools::install_github("hadley/dplyr")
 
 ### Subsetting Your Data
 
-Create a subset of people 25 or younger who smoked in the last 12 months.  To do this, one can use the `dplyr` package. Note that `CHECK321 == 1` is used to see if subject has smoked in the past 12 months and `!is.na()` is used to make sure the subset does not contain `NA`s for the chosen variables.
+Create a subset of people 25 years old or younger who smoked in the last 12 months.  To do this, one can use the `dplyr` package. Note that `CHECK321 == 1` is used to see if a subject has smoked in the past 12 months and `!is.na()` is used to make sure the subset does not contain `NA`s for the chosen variables.
 
 ```{r}
 library(dplyr)
@@ -100,7 +100,7 @@ NESARCsub3 <- subset(NESARC, subset = S3AQ1A == 1 & CHECK321 == 1 &
 dim(NESARCsub3)
 ```
 
-Use the verb `select` from the `dplyr` package to select the variables `CHECK321`, `AGE` (age of subject), `TAB12MDX` (tobacco dependence past 12 months), `S3AQ3B1` (usual smoking quantity), `ETHRACE2A` (ethnicity), `SEX` (gender), `MAJORDEPLIFE` (Dysthymia-Lifetime) and `S3AQ3C1` (usual smoking frequency).  
+Use the verb `select` from the `dplyr` package to select the variables `CHECK321`, `AGE` (age of subject), `TAB12MDX` (tobacco dependence past 12 months), `S3AQ3B1` (usual smoking quantity), `ETHRACE2A` (ethnicity), `SEX` (gender), `MAJORDEPLIFE` (Dysthymia-Lifetime), and `S3AQ3C1` (usual smoking frequency).  
 
 ### Renaming Variables
 
@@ -129,7 +129,6 @@ NESARCtbl$SmokingFrequency <- factor(NESARCtbl$SmokingFrequency)[, drop = TRUE]
 summary(NESARCtbl$SmokingFrequency)  # Unused level no longer appears
 ```
 
-I hate to look back at the code book to figure out what the heck the numbers represent in this case!  
 One of the great things about the `R` language is how it handles a wide variety of data types.  
 In this case, the variable `SmokingFrequency` is a factor with numeric labels for the levels of the factor.  
 To change the numeric labels to text type the following:
@@ -153,7 +152,7 @@ ggplot(data = NESARCtbl, aes(x = SmokingFrequency)) +
   theme_bw() 
 ```
 
-If you do not want to see the `NA`'s or have the labels on the $x-$ axis overlap, use
+If you do not want to see the `NA`'s or have the labels on the $x$- axis overlap, use
 
 ```{r label = "ggSmoke2", fig.width = 6, fig.height = 6}
 ggplot(data = na.omit(NESARCtbl[ , "SmokingFrequency", drop = FALSE]), aes(x = SmokingFrequency)) + 
@@ -165,7 +164,7 @@ ggplot(data = na.omit(NESARCtbl[ , "SmokingFrequency", drop = FALSE]), aes(x = S
 
 ### Collapsing Categories
 
-Consider the variable `S1Q6A` with 14 levels recording the highest level of education of the participant.  To collapse the categories in to dichotomous variable indicating the presence of a high school degree use the `ifelse` function. The levels `1`, `2`, `3`, `4`, `5`, `6`, and `7` of the variable `S1Q6A` correspond to education levels less than completing high school.
+Consider the variable `S1Q6A` which has 14 levels that record the highest level of education of the participant.  To collapse the categories into a dichotomous variable that indicates the presence of a high school degree, use the `ifelse` function. The levels `1`, `2`, `3`, `4`, `5`, `6`, and `7` of the variable `S1Q6A` correspond to education levels less than completing high school.
 
 ```{r label = "CollapseHS"}
 NESARC$HS_DEGREE <- factor(ifelse(NESARC$S1Q6A %in% c("1", "2", "3", "4", "5", "6", "7"), 
