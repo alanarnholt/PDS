@@ -15,12 +15,29 @@ NULL
 #' @format A data frame with 6504 observations on 2829 variables
 #' @source \url{http://www.cpc.unc.edu/projects/addhealth}
 #' @details See the code books in the CodeBooks folder for details.  
-#' The CodeBooks folder is a top level folder of the \code{PDS} package.  To see where the \code{PDS} package is
-#' installed on your machine, type the following at the \code{R} prompt: \code{system.file(package = "PDS")}
+#' The CodeBooks folder is a top level folder of the \code{PDS} package.  
+#' To see where the \code{PDS} package is installed on your machine, type 
+#' the following at the \code{R} prompt: 
+#' \code{system.file(package = "PDS")}
 #' @examples
 #' dim(AddHealth)
 #' @keywords datasets
 "AddHealth"
+#####################################################################################
+#' @name addhealth_public4
+#' @title Adolescent to Adult Health (Wave 4)
+#' @aliases addhealth_public4
+#' @docType data
+#' @description The National Longitudinal Study of Adolescent to Adult Health (Add Health) is a longitudinal study of a nationally representative sample of adolescents in grades 7-12 in the United States during the 1994-95 school year. 
+#' @format A data frame with 6504 observations on 976 variables
+#' @source \url{http://www.cpc.unc.edu/projects/addhealth}
+#' @details See the code books in the CodeBooks folder for details.  
+#' The CodeBooks folder is a top level folder of the \code{PDS} package.  To see where the \code{PDS} package is
+#' installed on your machine, type the following at the \code{R} prompt: \code{system.file(package = "PDS")}
+#' @examples
+#' dim(addhealth_public4)
+#' @keywords datasets
+"addhealth_public4"
 #####################################################################################
 #' @name gapminder
 #' @title Country level statistics
@@ -35,6 +52,24 @@ NULL
 #' dim(gapminder)
 #' @keywords datasets
 "gapminder"
+#####################################################################################
+#' @name ipeds_pds
+#' @title Integrated Post-secondary Education Data System 
+#' @aliases ipeds_pds
+#' @docType data
+#' @description Integrated Post-secondary Education Data System
+#' @format A data frame with 7764 observations on 544 variables
+#' @source \url{http://nces.ed.gov/ipeds/datacenter/DataFiles.aspx}
+#' @details IPEDS \url{http://nces.ed.gov/ipeds/datacenter/DataFiles.aspx}
+#' is the primary source for data on colleges, universities, and technical 
+#' and vocational postsecondary institutions in the United States.
+#' See the code books in the CodeBooks folder for details.  
+#' The CodeBooks folder is a top level folder of the \code{PDS} package.  To see where the \code{PDS} package is
+#' installed on your machine, type the following at the \code{R} prompt: \code{system.file(package = "PDS")}  
+#' @examples
+#' dim(ipeds_pds)
+#' @keywords datasets
+"ipeds_pds"
 #####################################################################################
 #' @name marscrater_pds
 #' @title Mars Craters
