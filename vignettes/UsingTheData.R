@@ -241,6 +241,13 @@ ggplot(data = NESARCtbl, aes(x = MajorDepression, fill = TobaccoDependence)) +
   facet_grid(Ethnicity ~ Sex) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
+## ----label = "mergeAddHealth"--------------------------------------------
+library(dplyr)
+AddHealthW4 <- tbl_df(addhealth_public4) %>% 
+  rename(AID = aid)
+AddHealthW1and4 <- left_join(AddHealthW4, AddHealth)
+dim(AddHealthW1and4)
+
 ## ---- echo = FALSE, results = 'asis'-------------------------------------
 knitr::kable(NESARCtbl[1300:1305, c("EthanolConsumption", "Sex", "MajorDepression")], 
              align = c("c","c","c"), caption = "Three Selected Columns")

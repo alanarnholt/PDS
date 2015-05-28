@@ -383,6 +383,18 @@ ggplot(data = NESARCtbl, aes(x = MajorDepression, fill = TobaccoDependence)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
+### Merging Data Sets
+
+To merge `AddHealth` Wave I with `addhealth_public4` Wave IV one can use the `left_join()` function from `dplyr`.  The `left_join` function returns all rows from the first argument (data frame), and all columns from both the first and second arguments (both data frames).  To use `left_join`, one needs a common variable in both data frames.   Note:  Although the code book for Wave IV uses upper case for variable names, the variable names in the data frame `addhealth_public4` are all lower case.   
+
+```{r label = "mergeAddHealth"}
+library(dplyr)
+AddHealthW4 <- tbl_df(addhealth_public4) %>% 
+  rename(AID = aid)
+AddHealthW1and4 <- left_join(AddHealthW4, AddHealth)
+dim(AddHealthW1and4)
+```
+
 #### kable
 
 ```{r, echo = FALSE, results = 'asis'}
