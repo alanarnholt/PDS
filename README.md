@@ -3,7 +3,7 @@
 R package containing data sets for *Passion Driven Statistics*
 
 
-### Version 0.1.1
+### Version 0.1.2
 
 ### Alan T. Arnholt
 
