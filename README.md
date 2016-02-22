@@ -1,5 +1,7 @@
 # PDS
 
+[![Travis-CI Build Status](https://travis-ci.org/alanarnholt/PDS.svg?branch=master)](https://travis-ci.org/alanarnholt/PDS)
+
 R package containing data sets for *Passion Driven Statistics*
 
 
