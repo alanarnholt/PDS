@@ -1,6 +1,4 @@
-language: r
-sudo: required
-warnings_are_errors: true
+# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
-r_binary_packages:
-  - knitr
+language: r
+cache: packages
