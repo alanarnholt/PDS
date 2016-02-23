@@ -53,24 +53,6 @@ NULL
 #' @keywords datasets
 "gapminder"
 #####################################################################################
-#' @name ipeds_pds
-#' @title Integrated Post-secondary Education Data System 
-#' @aliases ipeds_pds
-#' @docType data
-#' @description Integrated Post-secondary Education Data System
-#' @format A data frame with 7764 observations on 544 variables
-#' @source \url{http://nces.ed.gov/ipeds/datacenter/DataFiles.aspx}
-#' @details IPEDS \url{http://nces.ed.gov/ipeds/datacenter/DataFiles.aspx}
-#' is the primary source for data on colleges, universities, and technical 
-#' and vocational postsecondary institutions in the United States.
-#' See the code books in the CodeBooks folder for details.  
-#' The CodeBooks folder is a top level folder of the \code{PDS} package.  To see where the \code{PDS} package is
-#' installed on your machine, type the following at the \code{R} prompt: \code{system.file(package = "PDS")}  
-#' @examples
-#' dim(ipeds_pds)
-#' @keywords datasets
-"ipeds_pds"
-#####################################################################################
 #' @name marscrater_pds
 #' @title Mars Craters
 #' @aliases marscrater_pds
@@ -116,7 +98,6 @@ NULL
 #' dim(OOL)
 #' @keywords datasets
 "OOL"
-
 #####################################################################################
 #' @name frustration
 #' @title Frustation by Academic Major
