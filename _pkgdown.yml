@@ -1,9 +1,10 @@
 title: PDS
 
 template:
-  bootswatch: yeti
+  params:
+    bootswatch: yeti
   
-  navbar:
+navbar:
   type: inverse
   left:
   - text: Home
@@ -16,4 +17,4 @@ template:
   - text: "Alan T. Arnholt"
     href: https://alanarnholt.github.io/  
   - icon: fa-github fa-lg
-    href: https://github.com/alanarnholt/PDS
+    href: https://github.com/alanarnholt/PDS/
