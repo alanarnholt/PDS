@@ -1,7 +1,6 @@
 title: PDS
 
 template:
-  params:
     bootswatch: yeti
   
 navbar:
