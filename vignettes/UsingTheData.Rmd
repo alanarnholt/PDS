@@ -407,11 +407,5 @@ knitr::kable(NESARCtbl[1300:1305, c("EthanolConsumption", "Sex", "MajorDepressio
              align = c("c","c","c"), caption = "Three Selected Columns", col.names = c("Ethanol Consuption", "Gender", "Depression"))
 ```
 
-#### pander
-
-```{r, echo=FALSE, results='asis'}
-pander::pandoc.table(NESARCtbl[1300:1305, c("EthanolConsumption", "Sex", "MajorDepression")],
-                     caption = "Three Selected Columns")
-```
 
 
