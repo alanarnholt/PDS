@@ -6,10 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Sign Distance — signdist • PDS</title>
+<title>signdist. PDS</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
+
 <!-- Bootstrap -->
 <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
@@ -21,7 +22,6 @@
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
   
   
@@ -37,9 +37,10 @@
   </head>
 
   <body>
-    <div class="container template-reference-topic">
+    <div class="container">
       <header>
-      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -61,7 +62,6 @@
   <a href="../articles/index.html">Articles</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://alanarnholt.github.io/">Alan T. Arnholt</a>
@@ -76,60 +76,54 @@
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
-
       
       </header>
 
-      <div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header">
-    <h1>Sign Distance</h1>
-    </div>
+      <div class="page-header">
+  <h1>Sign Distance</h1>
+</div>
 
+<div class="row">
+  <div class="col-md-9">
     
     <p>For n=30 drivers, the driver's age and the maximum distance at which the driver can read a highway sign at night.</p>
     
 
     <pre class="usage"><span class='no'>signdist</span></pre>
         
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+    <div class="Format">
+      <h2>Format</h2>
 
+<<<<<<< HEAD
     <pre>'data.frame':	30 obs. of  2 variables:
  $ Age     : int  18 20 22 23 23 25 27 28 29 32 ...
  $ Distance: int  510 590 560 510 460 490 560 510 460 410 ...
 </pre>
     
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+=======
+      <p><pre>&#39;data.frame&#39;:	30 obs. of  2 variables:
+ $ Age     : int  18 20 22 23 23 25 27 28 29 32 ...
+ $ Distance: int  510 590 560 510 460 490 560 510 460 410 ...
+</pre></p>
+    </div>
+>>>>>>> 2e8ed6d49b3201d4277aae87b3416c5d591a3dd0
 
-    <p><a href = 'https://oli.cmu.edu/jcourse/workbook/activity/page?context=434b8b4980020ca60017028aafe3258a'>https://oli.cmu.edu/jcourse/workbook/activity/page?context=434b8b4980020ca60017028aafe3258a</a></p>
+    <div class="Source">
+      <h2>Source</h2>
+
+      <p><a href = 'https://oli.cmu.edu/jcourse/workbook/activity/page?context=434b8b4980020ca60017028aafe3258a'>https://oli.cmu.edu/jcourse/workbook/activity/page?context=434b8b4980020ca60017028aafe3258a</a></p>
+    </div>
     
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <h2 id="examples">Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>plot</span>(<span class='no'>Distance</span> ~ <span class='no'>Age</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>signdist</span>)</div><img src='signdist-2.png' alt='' width='540' height='400' /></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      
-      <li><a href="#format">Format</a></li>
-
-      <li><a href="#source">Source</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3">
   </div>
 </div>
 
       <footer>
-      <div class="copyright">
-  <p>Developed by Alan Arnholt.</p>
-</div>
-
-<div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
-</div>
-
+      <p>Built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
       </footer>
    </div>
 

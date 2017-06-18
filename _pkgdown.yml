@@ -1,11 +1,10 @@
 title: PDS
 
 template:
-  params:
     bootswatch: yeti
   
 navbar:
-  type: inverse
+  type:
   left:
   - text: Home
     href: index.html
